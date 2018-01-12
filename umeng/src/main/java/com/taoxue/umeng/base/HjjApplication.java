@@ -2,8 +2,12 @@ package com.taoxue.umeng.base;
 
 import android.app.Application;
 
+import com.danikula.videocache.HttpProxyCacheServer;
+import com.taoxue.umeng.utils.Upath;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.UMShareAPI;
+
+import java.io.File;
 
 /**
  * @author 侯建军
@@ -28,5 +32,20 @@ public class HjjApplication extends Application {
     public static HjjApplication getInstance() {
         return application;
     }
+
+    //********************************************缓存*******************************************************
+    private HttpProxyCacheServer proxy;
+    public static HttpProxyCacheServer getProxy() {
+        return application.proxy == null ? (application.proxy = application.newProxy()) : application.proxy;
+    }
+    /**
+     * 创建缓存代理服务,带文件目录的.
+     */
+    private HttpProxyCacheServer newProxy() {
+        HttpProxyCacheServer.Builder builder = new HttpProxyCacheServer.Builder(this);
+        builder.cacheDirectory(new File(Upath.getAppCachePath()));
+        return builder.build();
+    }
+    //********************************************缓存*******************************************************
 }
 

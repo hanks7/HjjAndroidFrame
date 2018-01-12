@@ -10,7 +10,7 @@ import android.util.Log;
  * @email 474664736@qq.com
  */
 
-public class Ulog {
+public class UL {
     private static final String TAG = "`tt";
 
     public static void i(Object content) {

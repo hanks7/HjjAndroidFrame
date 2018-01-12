@@ -11,9 +11,9 @@ import com.taoxue.umeng.base.HjjApplication;
  * @email 474664736@qq.com
  */
 
-public class Utoast {
+public class UT {
     // 构造方法私有化 不允许new对象
-    private Utoast() {
+    private UT() {
     }
 
     // Toast对象
@@ -23,7 +23,7 @@ public class Utoast {
      * 显示Toast
      */
     public static void s(Object strToast) {
-        Ulog.e("Toast    "+strToast);
+        UL.e("Toast    "+strToast);
         if (toast == null) {
             toast = Toast.makeText(HjjApplication.getInstance(), "", Toast.LENGTH_SHORT);
         }

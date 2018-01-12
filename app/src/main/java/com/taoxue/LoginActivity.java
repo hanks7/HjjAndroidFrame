@@ -4,10 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.taoxue.umeng.base.BaseActivity;
+import com.taoxue.base.BaseActivity;
 import com.taoxue.umeng.utils.ShareUtils;
-import com.taoxue.umeng.utils.Ulog;
-import com.taoxue.umeng.utils.Utoast;
+import com.taoxue.umeng.utils.UL;
+import com.taoxue.umeng.utils.UT;
+import com.taoxue.umeng.utils.Uintent;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -38,12 +39,12 @@ public class LoginActivity extends BaseActivity {
         UMShareAPI.get(this).getPlatformInfo(this, share_media, new UMAuthListener() {
             @Override
             public void onStart(SHARE_MEDIA share_media) {
-                Ulog.e("onComplete " + "授权开始");
+                UL.e("onComplete " + "授权开始");
             }
 
             @Override
             public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
-                 Ulog.e("onComplete " + "授权完成");
+                 UL.e("onComplete " + "授权完成");
 
                 //sdk是6.4.4的,但是获取值的时候用的是6.2以前的(access_token)才能获取到值,未知原因
                 String uid = map.get("uid");
@@ -55,10 +56,10 @@ public class LoginActivity extends BaseActivity {
                 String name = map.get("name");
                 String gender = map.get("gender");
                 String iconurl = map.get("iconurl");
-                Utoast.s(name+""+gender+""+gender+""+access_token);
+                UT.s(name+""+gender+""+gender+""+access_token);
 
                 for (Map.Entry<String, String> entry : map.entrySet()) {
-                    Ulog.e("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+                    UL.e("Key = " + entry.getKey() + ", Value = " + entry.getValue());
                 }
 
                 //拿到信息去请求登录接口。。。
@@ -66,12 +67,12 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
-                 Ulog.e("onError " + "授权失败");
+                 UL.e("onError " + "授权失败");
             }
 
             @Override
             public void onCancel(SHARE_MEDIA share_media, int i) {
-                 Ulog.e("onCancel " + "授权取消");
+                 UL.e("onCancel " + "授权取消");
             }
         });
     }
@@ -109,8 +110,12 @@ public class LoginActivity extends BaseActivity {
      * @param view
      */
     public void qqShare(View view) {
-        ShareUtils.shareWeb(this, musicurl, title
+        ShareUtils.shareWeb(this, url, title
                 , text, imageurl, R.mipmap.ic_launcher, SHARE_MEDIA.QQ
         );
+    }
+
+    public void payClick(View view) {
+        Uintent.intentDIY(this,TestActivity.class);
     }
 }

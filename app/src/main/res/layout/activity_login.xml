@@ -66,7 +66,8 @@
             </LinearLayout>
         </LinearLayout>
 
-        <Button android:onClick="qqShare" style="@style/share_btn_sytle" />
+        <Button android:onClick="qqShare" style="@style/share_btn_sytle" android:text="@string/umeng_socialize_share" />
+        <Button android:onClick="payClick" style="@style/share_btn_sytle" android:text="支付" />
 
     </LinearLayout>
 </ScrollView>

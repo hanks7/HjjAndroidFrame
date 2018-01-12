@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.taoxue.umeng.view.LoadingDialog;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -22,6 +23,8 @@ public class ShareUtils {
      */
     public static void shareWeb(final Activity activity, String WebUrl, String title, String description, String imageUrl, int imageID, SHARE_MEDIA platform) {
         UMWeb web = new UMWeb(WebUrl);//连接地址
+        final LoadingDialog dialog = new LoadingDialog(activity);
+        dialog.show();
         web.setTitle(title);//标题
         web.setDescription(description);//描述
         if (TextUtils.isEmpty(imageUrl)) {
@@ -35,7 +38,6 @@ public class ShareUtils {
                 .setCallback(new UMShareListener() {
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
-
                     }
 
                     @Override
@@ -44,10 +46,12 @@ public class ShareUtils {
                             @Override
                             public void run() {
                                 if (share_media.name().equals("WEIXIN_FAVORITE")) {
-                                    Utoast.s(share_media + " 收藏成功");
+                                    UT.s(share_media + " 收藏成功");
                                 } else {
-                                    Utoast.s(share_media + " 分享成功");
+
+                                    UT.s(share_media + " 分享成功");
                                 }
+                                dialog.hide();
                             }
                         });
                     }
@@ -60,8 +64,8 @@ public class ShareUtils {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Utoast.s(share_media + " 分享失败");
-
+                                UT.s(share_media + " 分享失败");
+                                dialog.hide();
                             }
                         });
                     }
@@ -71,7 +75,8 @@ public class ShareUtils {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Utoast.s(share_media + " 分享取消");
+                                UT.s(share_media + " 分享取消");
+                                dialog.hide();
                             }
                         });
                     }
