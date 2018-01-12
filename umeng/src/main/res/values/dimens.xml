@@ -13,6 +13,7 @@
     <dimen name="item_height">45dp</dimen>
     <dimen name="button_height">40dp</dimen>
     <dimen name="divider">1px</dimen>
+    <dimen name="topbar_height">45dp</dimen>
 
     <!--default-->
     <dimen name="default_icon_width">25dp</dimen>

@@ -3,8 +3,10 @@ package com.taoxue.umeng.base;
 import android.app.Application;
 
 import com.danikula.videocache.HttpProxyCacheServer;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
+import com.taoxue.umeng.http.HttpAdapter;
 import com.taoxue.umeng.utils.Upath;
-import com.umeng.socialize.Config;
 import com.umeng.socialize.UMShareAPI;
 
 import java.io.File;
@@ -19,12 +21,15 @@ import java.io.File;
 
 public class HjjApplication extends Application {
 
+    public RefWatcher refWatcher;
+
     @Override
     public void onCreate() {
         super.onCreate();
         application = this;
+        HttpAdapter.init();
+        refWatcher= LeakCanary.install(this);
         UMShareAPI.get(this);//初始化sdk
-        Config.DEBUG = true;//开启debug模式，方便定位错误，具体错误检查方式可以查看http://dev.umeng.com/social/android/quick-integration的报错必看，正式发布，请关闭该模式
     }
 
     public static HjjApplication application;
