@@ -23,12 +23,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.taoxue.umeng.R;
 import com.taoxue.umeng.utils.UtilDisplay;
+
+import static com.taoxue.umeng.base.Contants.FORMAL_URL;
 
 
 /**
@@ -39,12 +40,11 @@ public class UtilGlide {
     /**
      * 等待的图片
      */
-    private static final int placeholderPic = R.mipmap.image_default;
+    private static final int placeholderPic = R.mipmap.imagedaiti;
     /**
      * 出错的图片
      */
-    private static final int errorPic = R.mipmap.image_default;
-    private static final String BASE_URL = "";
+    private static final int errorPic = R.mipmap.imagedaiti;
 
     /**
      * ******************************************************************
@@ -64,6 +64,7 @@ public class UtilGlide {
             Glide.with(context)
                     .load(getStringEND(url))
                     .asBitmap()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
                     .placeholder(placeholderPic).error(errorPic)
                     .into(new MyBitmapImageViewTarget(imageView));
         } catch (Exception e) {
@@ -82,12 +83,28 @@ public class UtilGlide {
         Glide.with(context)
                 .load(getStringEND(url))
                 .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
                 .placeholder(placeholderPic).error(errorPic)
                 .crossFade()
                 .into(imageView);
     }
 
-
+    /**
+     * 使用Glide加载图片
+     *
+     * @param context
+     * @param url
+     * @param imageView
+     */
+    public static void loadImgCeterCrop(Context context, String url, final ImageView imageView) {
+        Glide.with(context)
+                .load(getStringEND(url))
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL) //设置缓存
+                .placeholder(placeholderPic).error(errorPic)
+                .crossFade()
+                .into(imageView);
+    }
     /**
      * 自适应宽度加载图片。保持图片的长宽比例不变，通过修改imageView的高度来完全显示图片。
      */
@@ -138,24 +155,30 @@ public class UtilGlide {
     }
 
     /**
-     * 显示圆形图片(解决第一次加载图片时显示默认图片bug)
+     * 显示圆形图片
      *
      * @param context
      * @param url
      * @param imageView
      */
-    public static void loadImgForIvHead(Context context, String url, final ImageView imageView) {
-        Glide
-                .with(context)
+    public static void loadImgForIvHead(final Context context, String url, final ImageView imageView) {
+        Glide.with(context)
                 .load(getStringEND(url))
+                .asBitmap() //这句不能少，否则下面的方法会报错
+                .centerCrop()
                 .placeholder(placeholderPic).error(errorPic)
-                .into(new SimpleTarget<GlideDrawable>() {
+                .into(new BitmapImageViewTarget(imageView) {
                     @Override
-                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                        imageView.setImageResource(R.mipmap.image_default);
+                    protected void setResource(Bitmap resource) {
+                        RoundedBitmapDrawable circularBitmapDrawable =
+                                RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                        circularBitmapDrawable.setCircular(true);
+                        imageView.setImageDrawable(circularBitmapDrawable);
                     }
                 });
     }
+
+
 
     public static void loadImgForIvHeadWithBorder(Context context, String url, final ImageView imageView) {
 
@@ -613,7 +636,7 @@ public class UtilGlide {
             url = "";
         }
         if (!url.startsWith("http")) {
-            url = BASE_URL + url;
+            url = FORMAL_URL + url;
         }
         return url;
     }

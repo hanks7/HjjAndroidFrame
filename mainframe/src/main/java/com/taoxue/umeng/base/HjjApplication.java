@@ -5,7 +5,6 @@ import android.app.Application;
 import com.danikula.videocache.HttpProxyCacheServer;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
-import com.taoxue.umeng.http.HttpAdapter;
 import com.taoxue.umeng.utils.Upath;
 import com.umeng.socialize.UMShareAPI;
 
@@ -27,7 +26,6 @@ public class HjjApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
-        HttpAdapter.init();
         refWatcher= LeakCanary.install(this);
         UMShareAPI.get(this);//初始化sdk
     }

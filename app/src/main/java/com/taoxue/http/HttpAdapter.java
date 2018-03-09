@@ -1,9 +1,8 @@
-package com.taoxue.umeng.http;
+package com.taoxue.http;
 
 
 import com.taoxue.umeng.http.gson.GsonConverterFactory;
 import com.taoxue.umeng.utils.Ulog;
-import com.taoxue.umeng.utils.USystem;
 
 import java.io.IOException;
 
@@ -16,14 +15,14 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
+import static com.taoxue.umeng.base.Contants.FORMAL_URL;
+
 /**
  * Created by CC on 2016/5/28.
  */
 public class HttpAdapter {
 
-    //    public final static String FORMAL_URL = "http://www.hopshine.net:11000/DRIS_frontend_V1.0.1/";//正式环境地址
-    public final static String FORMAL_URL = "http://117.71.57.47:11000/frontend/";//测试环境地址
-    public static String BASE_URL = FORMAL_URL;
+
 
     private static HttpApis service;
 
@@ -37,7 +36,7 @@ public class HttpAdapter {
                         (new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(FORMAL_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(client)
@@ -47,8 +46,7 @@ public class HttpAdapter {
 
 
     public static HttpApis getService() {
-        if (service == null||BASE_URL != FORMAL_URL) {
-            BASE_URL = FORMAL_URL;
+        if (service == null) {
             init();
         }
         return service;
@@ -59,11 +57,12 @@ public class HttpAdapter {
         @Override
         public Response intercept(Chain chain) throws IOException {
 
+
             Request request = chain.request();
             HttpUrl httpUrl = request.url()
                     .newBuilder()
-                    .addQueryParameter("IMEI", USystem.getIMSI())
-                    .addQueryParameter("user_id","123456")
+                    .addQueryParameter("IMEI", "864686037902690")
+                    .addQueryParameter("user_id", "1")
                     .build();
 
             Request build = request.newBuilder()

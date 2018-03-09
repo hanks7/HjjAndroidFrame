@@ -40,4 +40,8 @@ public class MainActivity extends BaseActivity {
     public void toWebActivity(View view) {
         Uintent.intentDIY(this, WebBaseActivity.class);
     }
+
+    public void toMyCollectActivity(View view) {
+        Uintent.intentDIY(this, MyCollectActivity.class);
+    }
 }

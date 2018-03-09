@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
         <!-- qq精简版 -->
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"
@@ -65,7 +65,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WebBaseActivity"></activity>
+        <activity android:name=".WebBaseActivity" />
+        <activity android:name=".MyCollectActivity"></activity>
     </application>
 
 </manifest>
