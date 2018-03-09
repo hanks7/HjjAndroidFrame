@@ -20,17 +20,15 @@
         <item name="android:layout_marginRight">12dp</item>
         <item name="android:layout_marginTop">12dp</item>
     </style>
-    <style name="TopBar">
+
+
+    <style name="dividing_line">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="contentInsetStart">0dp</item><!-- 设置该属性解决空白部分-->
-        <item name="contentInsetEnd">0dp</item><!-- 设置该属性解决空白部分-->
-        <item name="android:paddingLeft">0dp</item>
-        <item name="android:paddingRight">0dp</item>
-        <item name="android:paddingBottom">0dp</item>
-        <!--android:elevation="6dp">-->
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">#d8d8d8</item>
     </style>
+
+
+
 
 </resources>

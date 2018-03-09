@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">框架</string>
+
+    <string name="loading">正在加载中...</string>
+    <string name="no_permission">没有%1$s权限，无法%2$s！</string>
+    <string name="permission_note">\ %s权限\未获得,请在系统设置或者安全中心-->\权限设置\中添加相应权限</string>
+
+    <string name="home">首页</string>
+    <string name="classification">分类</string>
+    <string name="special">专题</string>
+    <string name="mine">我的</string>
+    <string name="more">更多</string>
+    <string name="zhuce">手机注册</string>
+    <string name="tiaoguo">跳过</string>
+    <string name="exit">退出</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="refresh">刷新</string>
+    <string name="setting">设置</string>
+    <string name="file_path">/hopshine/download</string>
+
+    <string name="x_list_view_footer_text_no_data_default_text">没有更多数据</string>
+    <string name="no_search_results">暂无搜素结果</string>
+    <string name="string_error_data">网络异常,点击重试</string>
+    <string name="tempare_no_data">暂无数据</string>
+</resources>

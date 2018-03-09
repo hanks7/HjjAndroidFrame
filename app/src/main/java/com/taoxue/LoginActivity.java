@@ -6,8 +6,8 @@ import android.view.View;
 
 import com.taoxue.base.BaseActivity;
 import com.taoxue.umeng.utils.ShareUtils;
-import com.taoxue.umeng.utils.UL;
-import com.taoxue.umeng.utils.UT;
+import com.taoxue.umeng.utils.Ulog;
+import com.taoxue.umeng.utils.UToast;
 import com.taoxue.umeng.utils.Uintent;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
@@ -33,18 +33,19 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * 授权
+     *
      * @param share_media
      */
     private void authorization(SHARE_MEDIA share_media) {
         UMShareAPI.get(this).getPlatformInfo(this, share_media, new UMAuthListener() {
             @Override
             public void onStart(SHARE_MEDIA share_media) {
-                UL.e("onComplete " + "授权开始");
+                Ulog.e("onComplete " + "授权开始");
             }
 
             @Override
             public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
-                 UL.e("onComplete " + "授权完成");
+                Ulog.e("onComplete " + "授权完成");
 
                 //sdk是6.4.4的,但是获取值的时候用的是6.2以前的(access_token)才能获取到值,未知原因
                 String uid = map.get("uid");
@@ -56,10 +57,10 @@ public class LoginActivity extends BaseActivity {
                 String name = map.get("name");
                 String gender = map.get("gender");
                 String iconurl = map.get("iconurl");
-                UT.s(name+""+gender+""+gender+""+access_token);
+                UToast.showText(name + "" + gender + "" + gender + "" + access_token);
 
                 for (Map.Entry<String, String> entry : map.entrySet()) {
-                    UL.e("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+                    Ulog.e("Key = " + entry.getKey() + ", Value = " + entry.getValue());
                 }
 
                 //拿到信息去请求登录接口。。。
@@ -67,15 +68,16 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
-                 UL.e("onError " + "授权失败");
+                Ulog.e("onError " + "授权失败");
             }
 
             @Override
             public void onCancel(SHARE_MEDIA share_media, int i) {
-                 UL.e("onCancel " + "授权取消");
+                Ulog.e("onCancel " + "授权取消");
             }
         });
     }
+
     /**
      * qq第三方登录
      *
@@ -107,15 +109,28 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * 分享测试
+     *
      * @param view
      */
     public void qqShare(View view) {
-        ShareUtils.shareWeb(this, url, title
-                , text, imageurl, R.mipmap.ic_launcher, SHARE_MEDIA.QQ
-        );
+        switch (view.getId()) {
+            case R.id.log_share_qq:
+                ShareUtils.shareWeb(this, url, title, text, imageurl, R.mipmap.ic_launcher, SHARE_MEDIA.QQ);
+                break;
+            case R.id.log_share_wei_xin:
+                ShareUtils.shareWeb(this, url, title, text, imageurl, R.mipmap.ic_launcher, SHARE_MEDIA.WEIXIN);
+                break;
+            case R.id.log_share_kong_jian:
+                ShareUtils.shareWeb(this, url, title, text, imageurl, R.mipmap.ic_launcher, SHARE_MEDIA.QZONE);
+                break;
+            case R.id.log_wei_xing_peng_you_quan:
+                ShareUtils.shareWeb(this, url, title, text, imageurl, R.mipmap.ic_launcher, SHARE_MEDIA.WEIXIN_CIRCLE);
+                break;
+        }
+
     }
 
     public void payClick(View view) {
-        Uintent.intentDIY(this,TestActivity.class);
+        Uintent.intentDIY(this, TestActivity.class);
     }
 }

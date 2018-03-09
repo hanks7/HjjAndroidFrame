@@ -6,7 +6,7 @@ import android.widget.EditText;
 
 import com.taoxue.base.BaseActivity;
 import com.taoxue.umeng.utils.AliPay.AliPayUtil;
-import com.taoxue.umeng.utils.UT;
+import com.taoxue.umeng.utils.UToast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +47,7 @@ public class TestActivity extends BaseActivity {
         builder.setPayCallBackListener(new AliPayUtil.Builder.PayCallBackListener() {
             @Override
             public void onPayCallBack(int status, String resultStatus, String progress) {
-                UT.s(progress);
+                UToast.showText(progress);
             }
         });
         builder.doPay(str);

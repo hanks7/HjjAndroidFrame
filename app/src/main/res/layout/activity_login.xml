@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-
     <LinearLayout
         android:id="@+id/activity_login"
         android:layout_width="match_parent"
@@ -16,11 +15,13 @@
         tools:context="com.taoxue.LoginActivity">
 
         <com.taoxue.umeng.view.TopBar
-            android:id="@+id/top_bar"
+            android:id="@+id/topbar"
             style="@style/TopBar"
-            app:title="搜索结果" />
+            app:title="登录" />
+
 
         <LinearLayout
+            android:padding="@dimen/default_padding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -74,8 +75,34 @@
             </LinearLayout>
         </LinearLayout>
 
-        <Button android:onClick="qqShare" style="@style/share_btn_sytle" android:text="@string/umeng_socialize_share" />
-        <Button android:onClick="payClick" style="@style/share_btn_sytle" android:text="支付" />
+        <Button
+            android:id="@+id/log_share_qq"
+            style="@style/share_btn_sytle"
+            android:onClick="qqShare"
+            android:text="分享qq" />
+
+        <Button
+            android:id="@+id/log_share_wei_xin"
+            style="@style/share_btn_sytle"
+            android:onClick="qqShare"
+            android:text="分享微信" />
+
+        <Button
+            android:id="@+id/log_share_kong_jian"
+            style="@style/share_btn_sytle"
+            android:onClick="qqShare"
+            android:text="分享QQ控件" />
+
+        <Button
+            android:id="@+id/log_wei_xing_peng_you_quan"
+            style="@style/share_btn_sytle"
+            android:onClick="qqShare"
+            android:text="分享微信朋友圈" />
+
+        <Button
+            style="@style/share_btn_sytle"
+            android:onClick="payClick"
+            android:text="支付" />
 
     </LinearLayout>
 </ScrollView>
