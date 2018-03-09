@@ -18,9 +18,7 @@ import java.lang.reflect.Method;
 public class UStatusBar {
     /**
      * 得到状态栏高度
-     * 并设置沉浸
      *
-     * @param context
      * @return
      */
     public static int getStatusBarHeight() {

@@ -2,6 +2,7 @@ package com.taoxue.umeng.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 
 import com.taoxue.umeng.R;
 import com.taoxue.umeng.base.HjjActivity;
-import com.taoxue.umeng.utils.UStatusBar;
 
 /**
  * Created by CC on 2016/6/5.
@@ -34,13 +34,18 @@ public class TopBar extends RelativeLayout {
     }
 
     public TopBar(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        super(context,attrs);
+        init(context, attrs);
     }
 
 
     public TopBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context, attrs);
 
+    }
+
+    private void init(Context context, AttributeSet attrs) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.layout_toolbar, this);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.search_view);
@@ -60,7 +65,6 @@ public class TopBar extends RelativeLayout {
                     ((HjjActivity) getContext()).onBackPressed();
             }
         });
-
     }
 
     public void setTitle(@StringRes int resId) {
@@ -128,8 +132,9 @@ public class TopBar extends RelativeLayout {
      * 启用 透明状态栏(重写此方法可以取消透明)
      */
     protected void setOnTranslucent(boolean translucent) {
-        if (translucent) {
-            setPadding(0, UStatusBar.getStatusBarHeight(), 0, 0);
+        if (translucent && getContext() instanceof HjjActivity && Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+            int resourceId = getContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
+            setPadding(0, getContext().getResources().getDimensionPixelSize(resourceId), 0, 0);
         }
     }
 
