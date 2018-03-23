@@ -132,7 +132,7 @@ public class TopBar extends RelativeLayout {
      * 启用 透明状态栏(重写此方法可以取消透明)
      */
     protected void setOnTranslucent(boolean translucent) {
-        if (translucent && getContext() instanceof HjjActivity && Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
+        if (translucent && getContext() instanceof HjjActivity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             int resourceId = getContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
             setPadding(0, getContext().getResources().getDimensionPixelSize(resourceId), 0, 0);
         }

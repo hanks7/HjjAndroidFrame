@@ -11,7 +11,7 @@ import android.util.Log;
  */
 
 public class Ulog {
-    private static final String TAG = "`tt";
+    private static final String TAG = "cc-";
 
     public static void i(Object content) {
         Log.i(TAG, content + "");
